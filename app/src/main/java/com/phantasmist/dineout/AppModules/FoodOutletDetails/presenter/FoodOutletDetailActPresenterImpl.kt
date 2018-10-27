@@ -2,15 +2,18 @@ package com.phantasmist.dineout.AppModules.FoodOutletDetails.presenter
 
 import android.util.Log
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.mapper.VenueDetailsApiResponseMapper
+import com.phantasmist.dineout.Cache.FoodOutletCacheImpl
+import com.phantasmist.dineout.Remote.FourSquareApiInterface
 import com.phantasmist.dineout.Utils.Constants
-import com.phantasmist.dineout.api.FourSquareApiInterface
-import com.phantasmist.dineout.cache.FoodOutletCacheImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+/**
+ * This class is the P (Presenter) of MVP architecture
+ * */
 class FoodOutletDetailActPresenterImpl @Inject constructor(val apiService: FourSquareApiInterface, val mapper: VenueDetailsApiResponseMapper) : FoodOutletDetailActContract.FODAPresenter {
 
     protected val subscriptions: CompositeDisposable = CompositeDisposable()
@@ -23,7 +26,12 @@ class FoodOutletDetailActPresenterImpl @Inject constructor(val apiService: FourS
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    view.onDataLoadedFromService(mapper.mapFromModel(it.response?.venue!!))
+                    if (it.meta?.code == 200) {
+                        view.onDataLoadedFromService(mapper.mapFromModel(it.response?.venue!!))
+                    } else {
+                        view.onErrorFromService(it.meta?.errorDetail!!.toString())
+                    }
+
                 }, { error ->
                     view.hideProgress()
                     view.onErrorFromService(error.localizedMessage)
@@ -35,8 +43,8 @@ class FoodOutletDetailActPresenterImpl @Inject constructor(val apiService: FourS
         subscribe(subscribe)
     }
 
-    override fun dislikeFoodOutlet(outletId: String,dislikeStatus:Boolean) {
-        cacheImpl.dislikeFoodOutlet(outletId,dislikeStatus)
+    override fun dislikeFoodOutlet(outletId: String, dislikeStatus: Boolean) {
+        cacheImpl.dislikeFoodOutlet(outletId, dislikeStatus)
     }
 
     override fun subscribe(subscribedDisposable: Disposable) {
@@ -54,7 +62,7 @@ class FoodOutletDetailActPresenterImpl @Inject constructor(val apiService: FourS
     }
 
     override fun attachCacheImplObject(cacheImpl: FoodOutletCacheImpl) {
-        this.cacheImpl=cacheImpl
+        this.cacheImpl = cacheImpl
     }
 
 }

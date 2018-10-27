@@ -182,6 +182,7 @@ data class VenueDetailsApiResponse(
 
     data class Meta(
         @SerializedName("code") val code: Int? = 0,
-        @SerializedName("requestId") val requestId: String? = ""
+        @SerializedName("requestId") val requestId: String? = "",
+        @SerializedName("errorDetail") val errorDetail: String? = ""
     )
 }

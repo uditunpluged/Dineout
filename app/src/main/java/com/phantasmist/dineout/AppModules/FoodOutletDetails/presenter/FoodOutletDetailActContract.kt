@@ -1,8 +1,8 @@
 package com.phantasmist.dineout.AppModules.FoodOutletDetails.presenter
 
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.datamodel.FoodOutletDetailsDataModel
-import com.phantasmist.dineout.base.BaseContract
-import com.phantasmist.dineout.cache.FoodOutletCacheImpl
+import com.phantasmist.dineout.Base.BaseContract
+import com.phantasmist.dineout.Cache.FoodOutletCacheImpl
 
 class FoodOutletDetailActContract {
     interface FODAView : BaseContract.View {

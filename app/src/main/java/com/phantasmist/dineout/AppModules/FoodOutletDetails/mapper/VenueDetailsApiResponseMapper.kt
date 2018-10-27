@@ -2,7 +2,7 @@ package com.phantasmist.dineout.AppModules.FoodOutletDetails.mapper
 
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.datamodel.FoodOutletDetailsDataModel
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.model.VenueDetailsApiResponse
-import com.phantasmist.dineout.base.ModelMapper
+import com.phantasmist.dineout.Base.ModelMapper
 import javax.inject.Inject
 
 class VenueDetailsApiResponseMapper @Inject constructor():ModelMapper<VenueDetailsApiResponse.Response.Venue,FoodOutletDetailsDataModel>{

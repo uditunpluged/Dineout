@@ -8,7 +8,7 @@
 
         <variable
             name="basicData"
-            type="com.phantasmist.dineout.AppModules.home.datamodel.FoodOutletItem" />
+            type="com.phantasmist.dineout.AppModules.Home.datamodel.FoodOutletItem" />
 
         <variable
             name="outletData"

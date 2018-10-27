@@ -7,14 +7,15 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.datamodel.FoodOutletDetailsDataModel
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.presenter.FoodOutletDetailActContract
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.presenter.FoodOutletDetailActPresenterImpl
 import com.phantasmist.dineout.AppModules.FoodOutletDetails.viewmodel.FoodOutletDetailViewModel
-import com.phantasmist.dineout.AppModules.home.datamodel.FoodOutletItem
+import com.phantasmist.dineout.AppModules.Home.datamodel.FoodOutletItem
+import com.phantasmist.dineout.Base.ViewModelFactory
+import com.phantasmist.dineout.Cache.FoodOutletCacheImpl
 import com.phantasmist.dineout.R
-import com.phantasmist.dineout.base.ViewModelFactory
-import com.phantasmist.dineout.cache.FoodOutletCacheImpl
 import com.phantasmist.dineout.databinding.ActivityFoodOutletDetailsBinding
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_food_outlet_details.*
@@ -96,6 +97,7 @@ class FoodOutletDetailsActivity : AppCompatActivity(), FoodOutletDetailActContra
 
     override fun onErrorFromService(localizedMessage: String) {
         Log.e("ERROR", localizedMessage)
+        Toast.makeText(this,localizedMessage,Toast.LENGTH_LONG).show()
     }
 
     override fun showProgress() {
