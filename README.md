@@ -6,6 +6,11 @@ Following application consist of two Activities.
 
 <div align="center">
     <img src="/screenshots/Screenshot_20181027-145623.png?raw=true" width="200px"</img>
+    <img src="/screenshots/Screenshot_20181027-145632.png?raw=true" width="200px"</img>
+    <img src="/screenshots/Screenshot_20181027-145639.png?raw=true" width="200px"</img>
+    <img src="/screenshots/Screenshot_20181027-145653.png?raw=true" width="200px"</img>
+    <img src="/screenshots/Screenshot_20181027-145700.png?raw=true" width="200px"</img>
+    <img src="/screenshots/Screenshot_20181027-145707.png?raw=true" width="200px"</img>
 </div>
 
 1. HomeActivity
