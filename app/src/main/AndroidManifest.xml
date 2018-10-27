@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.phantasmist.dineout">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:name=".DineoutApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true">
+        <activity
+            android:name=".AppModules.home.view.MainActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AppModules.FoodOutletDetails.view.FoodOutletDetailsActivity"
+            android:theme="@style/AppTheme.ProjectDetail"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBVAVuYc0XA5J76I-M2_75jayk5J6xGMR4" />
+    </application>
+
+</manifest>

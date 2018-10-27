@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
+    defaultConfig {
+        applicationId "com.phantasmist.dineout"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    androidExtensions { experimental = true }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kapt {
+        generateStubs = true
+    }
+    dataBinding {
+        enabled true
+    }
+
+}
+
+dependencies {
+
+    def mobileUiDependencies = rootProject.ext.mobileUiDependencies
+
+    implementation mobileUiDependencies.javaxAnnotation
+
+    implementation mobileUiDependencies.kotlin
+    implementation mobileUiDependencies.javaxInject
+    implementation mobileUiDependencies.rxKotlin
+    implementation mobileUiDependencies.androidAnnotations
+    implementation mobileUiDependencies.androidSupportV4
+    implementation mobileUiDependencies.androidSupportV13
+    implementation mobileUiDependencies.appCompatV7
+    implementation mobileUiDependencies.supportRecyclerView
+    implementation mobileUiDependencies.supportDesign
+    implementation mobileUiDependencies.timber
+    implementation mobileUiDependencies.rxAndroid
+    implementation (mobileUiDependencies.glide){
+        exclude group: "com.android.support"
+    }
+    implementation mobileUiDependencies.dagger
+    implementation mobileUiDependencies.daggerSupport
+    kapt mobileUiDependencies.daggerCompiler
+    kapt mobileUiDependencies.daggerProcessor
+    kapt mobileUiDependencies.glideAnnotation
+    implementation mobileUiDependencies.archRuntime
+    implementation mobileUiDependencies.archExtensions
+    implementation mobileUiDependencies.gson
+    implementation mobileUiDependencies.okHttp
+    implementation mobileUiDependencies.okHttpLogger
+    implementation mobileUiDependencies.retrofit
+    implementation mobileUiDependencies.retrofitConverter
+    implementation mobileUiDependencies.retrofitAdapter
+    implementation mobileUiDependencies.cardView
+    implementation mobileUiDependencies.googleMaps
+
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+    kapt mobileUiDependencies.archCompiler
+    implementation mobileUiDependencies.roomRuntime
+    kapt mobileUiDependencies.roomCompiler
+
+}
+apply plugin: 'kotlin-android-extensions'
