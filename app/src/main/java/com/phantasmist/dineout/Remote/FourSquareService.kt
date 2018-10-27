@@ -1,5 +1,6 @@
 package com.phantasmist.dineout.Remote
 
+import com.phantasmist.dineout.Utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +18,7 @@ class FourSquareService {
 
         private fun makeFourSquareService(okHttpClient: OkHttpClient): FourSquareApiInterface {
             val retrofit = Retrofit.Builder()
-                    .baseUrl("https://api.foursquare.com/v2/")
+                    .baseUrl(Constants.API_URL)
                     .client(okHttpClient)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
