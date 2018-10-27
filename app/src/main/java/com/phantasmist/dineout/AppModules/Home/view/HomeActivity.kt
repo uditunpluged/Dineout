@@ -103,7 +103,7 @@ class HomeActivity : AppCompatActivity(), HomeActivityContract.MAView, OnMapRead
         Log.e("DATACHANGEd",isFromCache.toString())
         if (isFromCache.not()){
             //load data from database
-            presenter.loadDataFromApi()
+            presenter.loadDataFromApi(fueledNewYorkOffice)
         }else {
             if (homeViewModel.allItems.value!!.isNotEmpty()) {
                 homeViewModel.allItems.value?.clear()
@@ -205,7 +205,7 @@ class HomeActivity : AppCompatActivity(), HomeActivityContract.MAView, OnMapRead
          * CHECK WHETHER TO LOAD DATA FROM CACHE/REMOTE OR LOAD IT FROM VIEWMODEL IF IT ALLREADY EXISTS
          * */
         if (homeViewModel.allItems.value!!.isEmpty()) {
-            presenter.loadDataFromApi()
+            presenter.loadDataFromApi(fueledNewYorkOffice)
         } else {
             foodOutletsRecAdapter.refreshFoodOutlets(homeViewModel.allItems.value!!)
             addMarkersToMap(homeViewModel.allItems.value!!)

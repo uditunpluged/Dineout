@@ -1,5 +1,6 @@
 package com.phantasmist.dineout.AppModules.Home.presenter
 
+import com.google.android.gms.maps.model.LatLng
 import com.phantasmist.dineout.AppModules.Home.datamodel.FoodOutletItem
 import com.phantasmist.dineout.Base.BaseContract
 import com.phantasmist.dineout.Cache.FoodOutletCacheImpl
@@ -16,7 +17,7 @@ class HomeActivityContract {
     }
 
     interface MAPresenter:BaseContract.BasePresenter<MAView>{
-        fun loadDataFromApi()
+        fun loadDataFromApi(fueledNewYorkOffice: LatLng)
         fun saveDataToCache(items: List<FoodOutletItem>)
         fun attachCacheImplObject(cacheImpl: FoodOutletCacheImpl)
     }

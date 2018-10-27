@@ -1,6 +1,7 @@
 package com.phantasmist.dineout.AppModules.Home.presenter
 
 import android.util.Log
+import com.google.android.gms.maps.model.LatLng
 import com.phantasmist.dineout.AppModules.Home.datamodel.FoodOutletItem
 import com.phantasmist.dineout.AppModules.Home.mappers.ExploreApiResponseMapper
 import com.phantasmist.dineout.Cache.FoodOutletCacheImpl
@@ -28,7 +29,7 @@ class HomeActiPresenterImpl @Inject constructor(val apiService: FourSquareApiInt
      * if yes --> loads data from db(cache)
      * if no --> loads data from remote api
      * */
-    override fun loadDataFromApi() {
+    override fun loadDataFromApi(locLatLng: LatLng) {
         view.showProgress()
 
         var cacheSubscription = cacheImpl.getFoodOutlets()
@@ -37,7 +38,7 @@ class HomeActiPresenterImpl @Inject constructor(val apiService: FourSquareApiInt
                 .subscribe({
                     Log.e("isDatabase", it.isEmpty().toString())
                     if (it.isEmpty()) {
-                        getDataFromRemote()
+                        getDataFromRemote(locLatLng)
                     } else {
                         view.onDataLoaded(it, true)
                         view.hideProgress()
@@ -56,15 +57,15 @@ class HomeActiPresenterImpl @Inject constructor(val apiService: FourSquareApiInt
     /**
      * Loads data from api and then store it in database
      * */
-    private fun getDataFromRemote() {
-        var subscribe = apiService.getNearbyOutlets("40.719981, -74.0022634", 50, "Food", Constants.CLIENT_ID, Constants.CLIENT_SECRET, "201810101", 1)
+    private fun getDataFromRemote(locLatLng: LatLng) {
+        lateinit var foodOutletList: List<FoodOutletItem>
+        var subscribe = apiService.getNearbyOutlets(locLatLng.latitude.toString().plus(",").plus(locLatLng.longitude.toString()), 50, "Food", Constants.CLIENT_ID, Constants.CLIENT_SECRET, "201810101", 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.meta?.code == 200) {
-                        var foodOutletList = it.response?.groups?.first()?.items?.map { mapper.mapFromModel(it!!) }?.asSequence()?.toList()!!.toMutableList()
+                        foodOutletList = it.response?.groups?.first()?.items?.map { mapper.mapFromModel(it!!) }?.asSequence()?.toList()!!.toMutableList()
                         saveDataToCache(foodOutletList)
-                        view.onDataLoaded(foodOutletList, false)
                     } else {
                         view.onErrorFromService(it.meta?.errorDetail!!.toString())
                     }
@@ -73,6 +74,8 @@ class HomeActiPresenterImpl @Inject constructor(val apiService: FourSquareApiInt
                     view.onErrorFromService(error.localizedMessage)
                 }, {
                     view.hideProgress()
+                    unsubscribe()
+                    view.onDataLoaded(foodOutletList, false)
                 })
         subscribe(subscribe)
 
