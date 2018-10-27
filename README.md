@@ -2,8 +2,11 @@ Dineout Application
 
 Following application consist of two Activities.
 
-![HomeActivity](/screenshots/Screenshot_20181027-145623.png?raw=true "HomeActivity")
 
+
+<div align="center">
+    <img src="/screenshots/Screenshot_20181027-145623.png?raw=true" width="200px"</img>
+</div>
 
 1. HomeActivity
     The purpose of this activity is to list down 50 Food Outlets near specified fueled office.
