@@ -2,7 +2,7 @@ Dineout Application
 
 Following application consist of two Activities.
 
-![HomeActivity](/Dineout/screenshots/Screenshot_20181027-145623.png?raw=true "HomeActivity")
+![HomeActivity](/screenshots/Screenshot_20181027-145623.png?raw=true "HomeActivity")
 
 
 1. HomeActivity
